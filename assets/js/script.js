@@ -13,7 +13,7 @@ var useSpecial;
 var charsetLowerCase = "abcdefghijklmnopqrstuvwxyz";
 var charsetUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var charsetNumeric = "0123456789";
-var charsetSpecial = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+var charsetSpecial = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
 // Utility function to turn user yes/no input into a boolean value.
 var getYesNoValue = function(promptText) {
