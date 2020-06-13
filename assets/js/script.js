@@ -1,12 +1,13 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+
 // Password Criteria.
 var critera
-var pwLength = -1;
-var useLowerCase = null;
-var useUpperCase = null;
-var useNumeric = null;
-var useSpecial = null;
+var pwLength;
+var useLowerCase;
+var useUpperCase;
+var useNumeric;
+var useSpecial;
 
 // Character sets.
 var charsetLowerCase = "abcdefghijklmnopqrstuvwxyz";
@@ -14,8 +15,10 @@ var charsetUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var charsetNumeric = "0123456789";
 var charsetSpecial = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
+// Utility function to turn user yes/no input into a boolean value.
 var getYesNoValue = function(promptText) {
-  while (true) {
+  while (true) { // Return conditions below will stop the loop.
+
     var choice = window.prompt(promptText + "\n\nEnter yes/no:");
     
     if (choice) {
@@ -32,12 +35,13 @@ var getYesNoValue = function(promptText) {
   }
 }
 
+// Get user input about what the password should look like.
 var collectPasswordCriteria = function() {
   pwLength = -1;
   useLowerCase = useUpperCase = useNumeric = useSpecial = false;
 
   while ((pwLength < 8) || (pwLength > 128)) {
-    pwLength = parseInt(window.prompt("Please enter the desired password length:", 16)) || 0;
+    pwLength = parseInt(window.prompt("Please enter the desired password length:")) || 0;
   }
 
   while ((useLowerCase || useUpperCase || useNumeric || useSpecial) === false) {
@@ -52,14 +56,43 @@ var collectPasswordCriteria = function() {
   }
 }
 
-// Collect
+// Main password generation logic.
 var generatePassword = function() {
-  return "Hello world!";
+  var charList = "";
+  var result = "";
+
+  collectPasswordCriteria();
+
+  // Combine character sets into a unified list to choose from.
+  if (useLowerCase) {
+    charList += charsetLowerCase;
+  }
+  if (useUpperCase) {
+    charList += charsetUpperCase;
+  }
+  if (useNumeric) {
+    charList += charsetNumeric;
+  }
+  if (useSpecial) {
+    charList += charsetSpecial;
+  }
+
+  // Safety loop for weeding out spaces at the beginning or end of the password.
+  while (result.length < pwLength) {
+    // Main generation loop.
+    while (result.length < pwLength) {
+      // Take a random character from charList and append it to our result.
+      result += charList.charAt(charList.length * Math.random());
+    }
+
+    result = result.trim();
+  }
+
+  return result;
 };
 
 // Write password to the #password input
 function writePassword() {
-  collectPasswordCriteria();
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
