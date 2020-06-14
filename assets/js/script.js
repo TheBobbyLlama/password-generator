@@ -15,26 +15,6 @@ var charsetUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var charsetNumeric = "0123456789";
 var charsetSpecial = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
-// Utility function to turn user yes/no input into a boolean value.
-var getYesNoValue = function(promptText) {
-  while (true) { // Return conditions below will stop the loop.
-
-    var choice = window.prompt(promptText + "\n\nEnter yes/no:");
-    
-    if (choice) {
-      choice = choice.toLowerCase();
-
-      // startsWith lets us accept partial entry like y/n.
-      // Will also take 'ye' as a 'yes' answer, which I think is a reasonable assumption.
-      if ("yes".startsWith(choice)) {
-        return true;
-      } else if ("no".startsWith(choice)) {
-        return false;
-      }
-    }
-  }
-}
-
 // Get user input about what the password should look like.
 var collectPasswordCriteria = function() {
   pwLength = -1;
@@ -45,10 +25,10 @@ var collectPasswordCriteria = function() {
   }
 
   while ((useLowerCase || useUpperCase || useNumeric || useSpecial) === false) {
-    useLowerCase = getYesNoValue("Use lower case letters?");
-    useUpperCase = getYesNoValue("Use upper case letters?");
-    useNumeric = getYesNoValue("Use numbers?");
-    useSpecial = getYesNoValue("Use special characters?")
+    useLowerCase = window.confirm("Use lower case letters?");
+    useUpperCase = window.confirm("Use upper case letters?");
+    useNumeric = window.confirm("Use numbers?");
+    useSpecial = window.confirm("Use special characters?")
 
     if ((useLowerCase || useUpperCase || useNumeric || useSpecial) === false) {
       window.alert("You must choose at least one type of character set.\nPlease try again.")
